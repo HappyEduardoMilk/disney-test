@@ -1,0 +1,110 @@
+<div class='container'>
+
+  <h2>Item List</h2>
+
+  <ul class='list-group'>
+    <li class='list-group-item' *ngFor='let item of items'>
+
+      <h4>{{item.name}}</h4>
+
+      <p>{{item.description}}</p>
+
+      <dl class='row'>
+        <dt class='col-xs-1'>price</dt>
+        <dd class='col-xs-5'>{{item.price | currency: MXN}}</dd>
+        <dt class='col-xs-1'>discount:</dt>
+        <dd class='col-xs-5'>{{item.discount | percent}}</dd>
+      </dl>
+
+    </li>
+  </ul>
+
+</div>
+
+<!-- Add Item -->
+<div class='container'>
+
+  <h2>Add Item</h2>
+
+  <form (ngSubmit)='addItem()' #itemForm='ngForm'>
+
+    <!-- Name -->
+    <div class='form-group'>
+
+      <label for='name'>Name</label>
+
+      <input type='text'
+          class='form-control'
+          id='name'
+          required [(ngModel)]='model.name'
+          name='name'
+          #name='ngModel'/>
+
+      <div [hidden]='name.valid || name.pristine' class='alert alert-danger'>
+        Name is required
+      </div>
+
+    </div>
+
+    <!-- Description -->
+    <div class='form-group'>
+
+      <label for='description'>Description</label>
+
+      <input type='text'
+          class='form-control'
+          id='description'
+          required [(ngModel)]='model.description'
+          name='description'
+          #description='ngModel' />
+
+      <div [hidden]='description.valid || description.pristine' class='alert alert-danger'>
+        Description is required
+      </div>
+
+    </div>
+
+    <!-- Price -->
+    <div class='form-group'>
+
+      <label for='price'>Price</label>
+
+      <input type='number'
+          class='form-control'
+          id='price'
+          min='0'
+          step='0.1'
+          placeholder='0'
+          required [(ngModel)]='model.price'
+          name='price'
+          #price='ngModel' />
+
+      <div [hidden]='price.valid || price.pristine' class='alert alert-danger'>
+        Price is required
+      </div>
+
+    </div>
+
+    <!-- Discount -->
+    <div class='form-group'>
+
+      <label for='discount'>Discount</label>
+
+      <input type='number'
+          class='form-control'
+          id='discount'
+          min='0'
+          placeholder='0'
+          [(ngModel)]='model.discount'
+          name='discount'
+          #discount='ngModel' />
+
+    </div>
+
+    <button type='submit' class='btn btn-success' [disabled]='!itemForm.form.valid'>
+      Add
+    </button>
+
+  </form>
+
+</div>
